@@ -8,6 +8,6 @@ import lombok.Setter;
 public class BookDTO {
     private String title;
     private String isbn;
-    private Long genreId;
-    private Long authorId;
+    private Long genre;
+    private Long author;
 }

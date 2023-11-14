@@ -3,39 +3,45 @@ package com.example.axbit.test.controller;
 import com.example.axbit.test.domain.common.AbstractEntity;
 import com.example.axbit.test.repository.AbstractRepository;
 import com.example.axbit.test.service.common.AbstractService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public abstract class AbstractController<T extends AbstractEntity, S extends AbstractService<T, R>, R extends AbstractRepository<T>> {
 
     protected final S service;
+    protected Pageable pageable;
 
-    public ResponseEntity<T> getEntityById(@PathVariable Long id) {
-        return new ResponseEntity<>(service.getEntityById(id), HttpStatus.OK);
+    @GetMapping("{id}")
+    public T getEntityById(@PathVariable Long id) {
+        return service.getEntityById(id);
     }
 
+    @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteEntityById(@PathVariable Long id) {
         service.deleteEntityById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<T>> getAllEntities(Pageable pageable) {
-        return new ResponseEntity<>(service.getAllEntities(pageable).getContent(), HttpStatus.OK);
+    @GetMapping
+    public List<T> getAllEntities() {
+        return service.getAllEntities(pageable).getContent();
     }
 
-    public ResponseEntity<T> createEntity(@RequestBody T entity) {
-        service.createEntity(entity);
-        return new ResponseEntity<>(entity, HttpStatus.CREATED);
+    @PostMapping
+    public T createEntity(@RequestBody T entity) {
+        return service.createEntity(entity);
     }
 
-    public ResponseEntity<T> updateEntityById(@PathVariable Long id, @RequestBody T entity) {
-        return new ResponseEntity<>(service.updateEntityById(id, entity), HttpStatus.OK);
+    @PatchMapping("{id}")
+    public T updateEntityById(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        return service.updateEntityById(id, fields);
     }
 }

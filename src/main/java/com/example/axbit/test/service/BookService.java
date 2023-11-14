@@ -13,6 +13,9 @@ public class BookService extends AbstractService<Book, BookRepository> {
 
     private final AuthorService authorService;
     private final GenreService genreService;
+    {
+        tClass = Book.class;
+    }
 
     public BookService(BookRepository repository, AuthorService authorService, GenreService genreService) {
         super(repository);
@@ -23,14 +26,14 @@ public class BookService extends AbstractService<Book, BookRepository> {
     public Book mapBookDTO(BookDTO bookDTO, Book book) {
         ofNullable(bookDTO.getTitle()).ifPresent(book::setTitle);
         ofNullable(bookDTO.getIsbn()).ifPresent(book::setIsbn);
-        ofNullable(bookDTO.getAuthorId()).ifPresent(id -> book.setAuthor(authorService.getEntityById(id)));
-        ofNullable(bookDTO.getGenreId()).ifPresent(id -> book.setGenre(genreService.getEntityById(id)));
+        ofNullable(bookDTO.getAuthor()).ifPresent(id -> book.setAuthor(authorService.getEntityById(id)));
+        ofNullable(bookDTO.getGenre()).ifPresent(id -> book.setGenre(genreService.getEntityById(id)));
 
         return book;
     }
 
-    @Override
-    public Book updateEntityById(Long id, Book book) {
-        return createEntity(book);
-    }
+//    @Override
+//    public Book updateEntityById(Long id, Book book) {
+//        return createEntity(book);
+//    }
 }
