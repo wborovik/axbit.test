@@ -3,7 +3,6 @@ package com.example.axbit.test.controller;
 import com.example.axbit.test.domain.common.AbstractEntity;
 import com.example.axbit.test.repository.AbstractRepository;
 import com.example.axbit.test.service.common.AbstractService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public abstract class AbstractController<T extends AbstractEntity, S extends AbstractService<T, R>, R extends AbstractRepository<T>> {
@@ -41,7 +39,7 @@ public abstract class AbstractController<T extends AbstractEntity, S extends Abs
     }
 
     @PatchMapping("{id}")
-    public T updateEntityById(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
-        return service.updateEntityById(id, fields);
+    public T updateEntityById(@PathVariable Long id, @RequestBody T entity) {
+        return service.updateEntityById(id, entity);
     }
 }

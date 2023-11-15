@@ -3,15 +3,13 @@ package com.example.axbit.test.service.common;
 import com.example.axbit.test.domain.common.AbstractEntity;
 import com.example.axbit.test.exception.ObjectNotSavedException;
 import com.example.axbit.test.repository.AbstractRepository;
+import com.example.axbit.test.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.ReflectionUtils;
 
 import javax.persistence.EntityNotFoundException;
-import java.lang.reflect.Field;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -42,13 +40,9 @@ public abstract class AbstractService<T extends AbstractEntity, R extends Abstra
         });
     }
 
-    public T updateEntityById(Long id, Map<String, Object> fields) {
-        var entity = getEntityById(id);
-        fields.forEach((key, value) -> {
-            Field field = ReflectionUtils.findField(tClass, key);
-            field.setAccessible(true);
-            ReflectionUtils.setField(field, entity, value);
-        });
-        return createEntity(entity);
+    public T updateEntityById(Long id, T entity, String... ignoredFields) {
+        var entityUpdate = getEntityById(id);
+        Utils.copyNonNullProperties(entity, entityUpdate, ignoredFields);
+        return createEntity(entityUpdate);
     }
 }

@@ -5,22 +5,13 @@ import com.example.axbit.test.repository.GenreRepository;
 import com.example.axbit.test.service.common.AbstractService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class GenreService extends AbstractService<Genre, GenreRepository> {
     {
         tClass = Genre.class;
     }
+
     public GenreService(GenreRepository repository) {
         super(repository);
     }
-
-//    @Override
-//    public Genre updateEntityById(Long id, Genre genre) {
-//        var genreUpdate = getEntityById(id);
-//        Optional.ofNullable(genre.getDescription()).ifPresent(genreUpdate::setDescription);
-//
-//        return createEntity(genreUpdate);
-//    }
 }

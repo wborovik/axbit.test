@@ -18,29 +18,4 @@ public class GenreController extends AbstractController<Genre, GenreService, Gen
     {
         pageable = PageRequest.of(0, 100, Sort.by("description"));
     }
-
-//    @GetMapping("genre/{id}")
-//    public Genre getGenreById(@PathVariable Long id) {
-//        return super.getEntityById(id);
-//    }
-
-//    @DeleteMapping("/genre/delete/{id}")
-//    public ResponseEntity<HttpStatus> deleteGenreById(@PathVariable Long id) {
-//        return super.deleteEntityById(id);
-//    }
-
-//    @GetMapping
-//    public List<Genre> getAllGenres() {
-//        return super.getAllEntities(PAGEABLE);
-//    }
-
-//    @PostMapping
-//    public Genre createGenre(@RequestBody Genre genre) {
-//        return super.createEntity(genre);
-//    }
-
-//    @PatchMapping("{id}")
-//    public Genre updateGenreById(@PathVariable Long id, @RequestBody Genre genre) {
-//        return super.updateEntityById(id, genre);
-//    }
 }

@@ -13,6 +13,7 @@ public class BookService extends AbstractService<Book, BookRepository> {
 
     private final AuthorService authorService;
     private final GenreService genreService;
+
     {
         tClass = Book.class;
     }
@@ -31,9 +32,4 @@ public class BookService extends AbstractService<Book, BookRepository> {
 
         return book;
     }
-
-//    @Override
-//    public Book updateEntityById(Long id, Book book) {
-//        return createEntity(book);
-//    }
 }
